@@ -1,12 +1,15 @@
 import unittest
+
+import self as self
+from appium.webdriver import webdriver
 from ddt import ddt, file_data
 import time
 
 from selenium.webdriver.common.by import By
 
-from PycharmProjects.ProjectAuto.common.baseDriver import android_driver
-from PycharmProjects.ProjectAuto.common.basePage import BasePage
-from PycharmProjects.ProjectAuto.pageObject.login_page import LoginPage
+from common.baseDriver import android_driver
+from common.basePage import BasePage
+from pageObject.login_page import LoginPage
 
 
 @ddt
@@ -15,7 +18,8 @@ class CaseLogin(unittest.TestCase):
     @classmethod
     def setUp(cls) -> None:
         # Step 2： 定义界面
-        cls.loginPage1 = LoginPage(android_driver())
+        cls.driver = android_driver()
+        cls.loginPage = LoginPage(cls.driver)
 
     @classmethod
     def tearDown(cls) -> None:
@@ -29,77 +33,74 @@ class CaseLogin(unittest.TestCase):
     def test_01_login_page_input_wrong_username_wrong_password_should_fail(self):
         # Step 3: 动作
 
-        self.loginPage1.input_username("wangx")
-        self.loginPage1.input_password("0")
-        self.loginPage1.press_login_button()
+        self.loginPage.input_username("wangx")
+        self.loginPage.input_password("0")
+        self.loginPage.press_login_button()
         #
         # # Step 4: 找到断言的变量 和 常量
-        alert_title = self.loginPage1.get_alert_title_UI_element().text
-        alert_content = self.loginPage1.get_alert_content_UI_element().text
+        alert_title = self.loginPage.get_alert_title_UI_element().text
+        alert_content = self.loginPage.get_alert_content_UI_element().text
         #
         # # Step 5： 断言
-        self.assertEquals(alert_title, "登录失败")
-        self.assertEquals(alert_content, "用户名不存在!")
+        self.assertEqual(alert_title, "登录失败")
+        self.assertEqual(alert_content, "用户名不存在!")
 
     def test_02_login_page_input_right_username_right_password_should_success(self):
         # Step 3: 动作
-        self.loginPage1.input_username("wangxin")
-        self.loginPage1.input_password("1")
-        self.loginPage1.press_login_button()
+        self.loginPage.input_username("wangxin")
+        self.loginPage.input_password("1")
+        self.loginPage.press_login_button()
 
         # Step 4: 找到断言的变量 和 常量
 
-        alert_title = self.loginPage1.get_alert_title_ID().text
+        alert_title = self.loginPage.get_alert_title_ID().text
         # Step 5： 断言
-        self.assertEquals(alert_title,"免责声明")
+        self.assertEquals(alert_title, "免责声明")
 
     def test_03_login_page_input_wrong_username_wrong_password_should_fail(self):
         # Step 3: 动作
 
-        self.loginPage1.input_username("wangx")
-        self.loginPage1.input_password("0")
-        self.loginPage1.press_login_button()
+        self.loginPage.input_username("wangx")
+        self.loginPage.input_password("0")
+        self.loginPage.press_login_button()
 
         # Step 4: 找到断言的变量 和 常量
-        alert_title = self.loginPage1.get_alert_title_UI_element().text
-        alert_content = self.loginPage1.get_alert_content_UI_element().text
+        alert_title = self.loginPage.get_alert_title_UI_element().text
+        alert_content = self.loginPage.get_alert_content_UI_element().text
 
         # Step 5： 断言
-        self.assertEquals(alert_title,"登录失败")
-        self.assertEquals(alert_content,"用户名不存在!")
+        self.assertEquals(alert_title, "登录失败")
+        self.assertEquals(alert_content, "用户名不存在!")
 
     def test_04_login_page_input_null_username_wrong_password_should_fail(self):
-        self.loginPage1.input_username("")
-        self.loginPage1.input_password("0")
-        login_button = self.loginPage1.get_login_button()
+        self.loginPage.input_username("")
+        self.loginPage.input_password("0")
+        login_button = self.loginPage.get_login_button()
         self.assertEqual(False, login_button.is_enabled())
 
     def test_05_login_page_input_right_username_wrong_password_should_fail(self):
-        self.loginPage1.input_username("wangxin")
-        self.loginPage1.input_password("0")
-        self.loginPage1.press_login_button()
+        self.loginPage.input_username("wangxin")
+        self.loginPage.input_password("0")
+        self.loginPage.press_login_button()
 
-        alert_title = self.loginPage1.get_alert_title_UI_element().text
-        assert_content = self.loginPage1.get_alert_content_UI_element().text
-        self.assertEquals(alert_title,"登录失败")
-        self.assertEquals(assert_content,"当前密码错误")
+        alert_title = self.loginPage.get_alert_title_UI_element().text
+        assert_content = self.loginPage.get_alert_content_UI_element().text
+        self.assertEquals(alert_title, "登录失败")
+        self.assertEquals(assert_content, "当前密码错误")
 
     def test_06_login_page_input_right_username_wrong_password_should_fail(self):
-        self.loginPage1.input_username("wangxin")
-        self.loginPage1.input_password("0")
-        self.loginPage1.press_login_button()
+        self.loginPage.input_username("wangxin")
+        self.loginPage.input_password("0")
+        self.loginPage.press_login_button()
 
-        alert_title = self.loginPage1.get_alert_title_UI_element().text
-        alert_content = self.loginPage1.get_alert_content_UI_element().text
+        alert_title = self.loginPage.get_alert_title_UI_element().text
+        alert_content = self.loginPage.get_alert_content_UI_element().text
 
-        self.assertEquals(alert_title,"登录失败")
-        self.assertEquals(alert_content,"当前密码错误")
+        self.assertEquals(alert_title, "登录失败")
+        self.assertEquals(alert_content, "当前密码错误")
 
         # assert "登录失败" == assert_title
         # assert "当前密码错误" == assert_content
-
-
-
 
     # self.LoginPage.login_action(kwargs.get('username_wrong'), kwargs.get('password_right'))
     # alert_title, alert_content = self.LoginPage.login_failed_alert_handle()

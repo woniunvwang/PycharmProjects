@@ -1,12 +1,13 @@
+from appium.webdriver.common.appiumby import AppiumBy
 from selenium.webdriver.common.by import By
 
-from PycharmProjects.ProjectAuto.common.baseDriver import android_driver
-from PycharmProjects.ProjectAuto.common.basePage import BasePage
+from common.baseDriver import android_driver
+from common.basePage import BasePage
 
 
 class LoginPage(BasePage):
-    username = (By.ID, 'com.atp.demo2:id/username')
-    password = (By.ID, 'com.atp.demo2:id/password')
+    usernameID = (AppiumBy.ID, 'com.atp.demo2:id/username')
+    passwordID = (By.ID, 'com.atp.demo2:id/password')
     login_button_ID = (By.ID, 'com.atp.demo2:id/sign_in_button')
     error_alert_title_ID = (By.ID, "com.atp.demo2:id/title")
     error_alert_content_ID = (By.ID, "com.atp.demo2:id/content_view")
@@ -28,18 +29,18 @@ class LoginPage(BasePage):
         return self.get_visible_element(self.alert_title_ID)
 
     def input_username(self, text):
-        self.input_action(self.username, text)
+        self.input_action(self.usernameID, text)
 
     def input_password(self, text):
-        self.input_action(self.password, text)
+        self.input_action(self.passwordID, text)
 
     def press_login_button(self):
         login_button = self.get_visible_element(self.login_button_ID)
         login_button.click()
 
-    def login_action(self,username,password):
-        self.username = username
-        self.password = password
+    def login_action(self, username, password):
+        # self.username = username
+        # self.password = password
         self.input_username(username)
         self.input_password(password)
         self.press_login_button()
@@ -102,8 +103,9 @@ class LoginPage(BasePage):
 # agree_disclaimer = (By.ID, "com.atp.demo2:id/agree")
 # group_title_name = (By.ID, "com.atp.demo2:id/group_title_name")
 
-if __name__ == '__main__':
-    driver = android_driver()
+# if __name__ == '__main__':
+
+    # driver = android_driver()
     # user = 'atpwangx'
     # pwd = '1'
     # a = LoginPage(driver)
