@@ -1,7 +1,9 @@
 import unittest
 
+from appium import webdriver
 import self as self
 from appium.webdriver import webdriver
+from appium.webdriver.common.appiumby import AppiumBy
 from ddt import ddt, file_data
 import time
 
@@ -50,12 +52,28 @@ class CaseLogin(unittest.TestCase):
         self.loginPage.input_username("wangxin")
         self.loginPage.input_password("1")
         self.loginPage.press_login_button()
+        time.sleep(1)
+        el12 = self.driver.find_element(by=AppiumBy.ID, value="com.atp.demo2:id/cancel")
+        el12.click()
+        time.sleep(1)
+        el2 = self.driver.find_element(by=AppiumBy.ID, value="com.atp.demo2:id/checkBox_allow_collect_system_information")
+        el2.click()
+        self.loginPage.press_login_button()
+        time.sleep(3)
+        el1 = self.driver.find_element(by=AppiumBy.ID,
+                                  value="com.android.permissioncontroller:id/permission_allow_foreground_only_button")
+        el1.click()
+
+        el2 = self.driver.find_element(by=AppiumBy.ID, value="com.android.permissioncontroller:id/permission_allow_button")
+        el2.click()
+        el3 = self.driver.find_element(by=AppiumBy.ID, value="com.android.permissioncontroller:id/permission_allow_button")
+        el3.click()
 
         # Step 4: 找到断言的变量 和 常量
 
         alert_title = self.loginPage.get_alert_title_ID().text
         # Step 5： 断言
-        self.assertEquals(alert_title, "免责声明")
+        self.assertEqual(alert_title, "免责声明")
 
     def test_03_login_page_input_wrong_username_wrong_password_should_fail(self):
         # Step 3: 动作
@@ -69,8 +87,8 @@ class CaseLogin(unittest.TestCase):
         alert_content = self.loginPage.get_alert_content_UI_element().text
 
         # Step 5： 断言
-        self.assertEquals(alert_title, "登录失败")
-        self.assertEquals(alert_content, "用户名不存在!")
+        self.assertEqual(alert_title, "登录失败")
+        self.assertEqual(alert_content, "用户名不存在!")
 
     def test_04_login_page_input_null_username_wrong_password_should_fail(self):
         self.loginPage.input_username("")
@@ -82,22 +100,55 @@ class CaseLogin(unittest.TestCase):
         self.loginPage.input_username("wangxin")
         self.loginPage.input_password("0")
         self.loginPage.press_login_button()
+        time.sleep(1)
+        el12 = self.driver.find_element(by=AppiumBy.ID, value="com.atp.demo2:id/cancel")
+        el12.click()
+        time.sleep(1)
+        el2 = self.driver.find_element(by=AppiumBy.ID, value="com.atp.demo2:id/checkBox_allow_collect_system_information")
+        el2.click()
+        self.loginPage.press_login_button()
+        time.sleep(3)
+        el1 = self.driver.find_element(by=AppiumBy.ID,
+                                  value="com.android.permissioncontroller:id/permission_allow_foreground_only_button")
+        el1.click()
+
+        el2 = self.driver.find_element(by=AppiumBy.ID, value="com.android.permissioncontroller:id/permission_allow_button")
+        el2.click()
+        el3 = self.driver.find_element(by=AppiumBy.ID, value="com.android.permissioncontroller:id/permission_allow_button")
+        el3.click()
+        self.loginPage.press_login_button()
 
         alert_title = self.loginPage.get_alert_title_UI_element().text
         assert_content = self.loginPage.get_alert_content_UI_element().text
-        self.assertEquals(alert_title, "登录失败")
-        self.assertEquals(assert_content, "当前密码错误")
+        self.assertEqual(alert_title, "登录失败")
+        self.assertEqual(assert_content, "当前密码错误")
 
     def test_06_login_page_input_right_username_wrong_password_should_fail(self):
         self.loginPage.input_username("wangxin")
         self.loginPage.input_password("0")
         self.loginPage.press_login_button()
+        time.sleep(1)
+        el12 = self.driver.find_element(by=AppiumBy.ID, value="com.atp.demo2:id/cancel")
+        el12.click()
+        time.sleep(1)
+        el2 = self.driver.find_element(by=AppiumBy.ID, value="com.atp.demo2:id/checkBox_allow_collect_system_information")
+        el2.click()
+        self.loginPage.press_login_button()
+        time.sleep(2)
+        el1 = self.driver.find_element(by=AppiumBy.ID,
+                                  value="com.android.permissioncontroller:id/permission_allow_foreground_only_button")
+        el1.click()
+
+        el2 = self.driver.find_element(by=AppiumBy.ID, value="com.android.permissioncontroller:id/permission_allow_button")
+        el2.click()
+        el3 = self.driver.find_element(by=AppiumBy.ID, value="com.android.permissioncontroller:id/permission_allow_button")
+        el3.click()
 
         alert_title = self.loginPage.get_alert_title_UI_element().text
         alert_content = self.loginPage.get_alert_content_UI_element().text
 
-        self.assertEquals(alert_title, "登录失败")
-        self.assertEquals(alert_content, "当前密码错误")
+        self.assertEqual(alert_title, "登录失败")
+        self.assertEqual(alert_content, "当前密码错误")
 
         # assert "登录失败" == assert_title
         # assert "当前密码错误" == assert_content

@@ -1,17 +1,20 @@
 from appium.webdriver.common.appiumby import AppiumBy
-from selenium.webdriver.common.by import By
-
 from common.baseDriver import android_driver
 from common.basePage import BasePage
 
 
 class LoginPage(BasePage):
     usernameID = (AppiumBy.ID, 'com.atp.demo2:id/username')
-    passwordID = (By.ID, 'com.atp.demo2:id/password')
-    login_button_ID = (By.ID, 'com.atp.demo2:id/sign_in_button')
-    error_alert_title_ID = (By.ID, "com.atp.demo2:id/title")
-    error_alert_content_ID = (By.ID, "com.atp.demo2:id/content_view")
-    alert_title_ID = (By.ID, "com.atp.demo2:id/disclaimer_title")
+    passwordID = (AppiumBy.ID, 'com.atp.demo2:id/password')
+    login_button_ID = (AppiumBy.ID, 'com.atp.demo2:id/sign_in_button')
+    error_alert_title_ID = (AppiumBy.ID, "com.atp.demo2:id/title")
+    error_alert_content_ID = (AppiumBy.ID, "com.atp.demo2:id/content_view")
+    alert_title_ID = (AppiumBy.ID, "com.atp.demo2:id/disclaimer_title")
+    cancel_button = (AppiumBy.ID, "com.atp.demo2:id/cancel")
+    checkBox_allow = (AppiumBy.ID,"com.atp.demo2:id/checkBox_allow_collect_system_information")
+    permission_allow = (AppiumBy.ID, "com.android.permissioncontroller:id""/permission_allow_foreground_only_button")
+    allow_button_id = (AppiumBy.ID, "com.android.permissioncontroller:id/permission_allow_button")
+    agree_button = (AppiumBy.ID, "com.atp.demo2:id/agree")
 
     def __init__(self, driver):
         super().__init__(driver)
@@ -35,18 +38,23 @@ class LoginPage(BasePage):
         self.input_action(self.passwordID, text)
 
     def press_login_button(self):
-        login_button = self.get_visible_element(self.login_button_ID)
-        login_button.click()
+        # login_button = self.get_visible_element(self.login_button_ID)
+        # login_button.click()
+        self.click_action(self.login_button_ID)
 
     def login_action(self, username, password):
-        # self.username = username
-        # self.password = password
         self.input_username(username)
         self.input_password(password)
         self.press_login_button()
 
     def press_change_password(self):
-        self.click_action()
+        self.click_action(self.cancel_button)
+        self.click_action(self.checkBox_allow)
+        self.press_login_button()
+        self.click_action(self.permission_allow)
+        self.click_action(self.allow_button_id)
+        self.click_action(self.allow_button_id)
+
 
     def press_change_server(self):
         pass
@@ -82,31 +90,13 @@ class LoginPage(BasePage):
     #         pass
     #
     def agree_disclaimers_and_get_group_name(self):
-        try:
-            self.click_action(self.agree_disclaimer)
-            self.click_action(self.agree_disclaimer)
-            group_name = self.get_visible_element(self.group_title_name).text
-            return group_name
-        except:
-            group_name = self.get_visible_element(self.group_title_name).text
-            return group_name
+        self.click_action(self.cancel_button)
+        self.click_action(self.checkBox_allow)
+        self.press_login_button()
+        self.click_action(self.permission_allow)
+        self.click_action(self.allow_button_id)
+        self.click_action(self.allow_button_id)
+        self.press_login_button()
+        self.click_action(self.agree_button)
+        self.click_action(self.agree_button)
 
-
-# alert_title = (By.ID, "com.atp.demo2:id/title")
-# alert_content = (By.ID, "com.atp.demo2:id/content_view")
-# alert_cancel = (By.ID, "com.atp.demo2:id/cancel")
-# information_collection_allow = (By.ID, "com.atp.demo2:id/checkBox_allow_collect_system_information")
-#
-# allow_position = (By.ID, "com.android.permissioncontroller:id/permission_allow_foreground_only_button")
-# allow_reading_messages = (By.ID, "com.android.permissioncontroller:id/permission_allow_button")
-#
-# agree_disclaimer = (By.ID, "com.atp.demo2:id/agree")
-# group_title_name = (By.ID, "com.atp.demo2:id/group_title_name")
-
-# if __name__ == '__main__':
-
-    # driver = android_driver()
-    # user = 'atpwangx'
-    # pwd = '1'
-    # a = LoginPage(driver)
-    # a.login_action(user, pwd)
