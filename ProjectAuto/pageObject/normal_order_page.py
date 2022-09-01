@@ -499,60 +499,38 @@ class NormalOrderPage(BasePage):
         self.press_confirm_button()
         self.press_confirm_button()
 
+    def stl_type_input_price_diff_and_StPx_diff(self, StPx_diff, price_diff):
+        self.change_type_stl()
+        self.clear_action(self.input_StPx_path)
+        self.clear_action(self.price_xpath)
+        last_price_and_lots = self.get_visible_element(self.last_price_and_lots).text
+        last_trade_price = float(last_price_and_lots.split('@')[1])
+        price_value = last_trade_price + int(price_diff)
+        StPx_value = last_trade_price + int(StPx_diff)
+        self.input_action(self.input_StPx_path, StPx_value)
+        self.input_action(self.price_xpath, price_value)
 
     def stl_type_input_StPx_below_price_and_buy_order(self):
-        self.change_type_stl()
-        self.clear_action(self.input_StPx_path)
-        self.clear_action(self.price_xpath)
-        last_price_and_lots = self.get_visible_element(self.last_price_and_lots)
-        last_price_and_lots_value = last_price_and_lots.text
-        StPx_value = float(last_price_and_lots_value.split('@')[1]) + 2
-        price_value = float(last_price_and_lots_value.split('@')[1]) + 5
-        self.input_action(self.input_StPx_path, str(StPx_value))
-        self.input_action(self.price_xpath, str(price_value))
-        self.click_action(self.button_confirm)
-        self.click_action(self.button_confirm)
+        self.stl_type_input_price_diff_and_StPx_diff(5, 10)
+        self.press_confirm_button()
+        self.press_confirm_button()
 
     def stl_type_input_StPx_above_price_and_buy_order(self):
-        self.change_type_stl()
-        self.clear_action(self.input_StPx_path)
-        self.clear_action(self.price_xpath)
-        last_price_and_lots = self.get_visible_element(self.last_price_and_lots)
-        last_price_and_lots_value = last_price_and_lots.text
-        StPx_value = float(last_price_and_lots_value.split('@')[1]) + 5
-        price_value = float(last_price_and_lots_value.split('@')[1]) + 2
-        self.input_action(self.input_StPx_path, str(StPx_value))
-        self.input_action(self.price_xpath, str(price_value))
-        self.click_action(self.button_confirm)
-        self.click_action(self.button_confirm)
+        self.stl_type_input_price_diff_and_StPx_diff(10, 5)
+        self.click_action(self.sell_side_id)
+        self.press_confirm_button()
+        self.press_confirm_button()
 
     def stl_type_input_StPx_below_price_and_sell_order(self):
-        self.change_type_stl()
+        self.stl_type_input_price_diff_and_StPx_diff(5, 10)
         self.click_action(self.sell_side_id)
-        self.clear_action(self.input_StPx_path)
-        self.clear_action(self.price_xpath)
-        last_price_and_lots = self.get_visible_element(self.last_price_and_lots)
-        last_price_and_lots_value = last_price_and_lots.text
-        StPx_value = float(last_price_and_lots_value.split('@')[1]) + 2
-        price_value = float(last_price_and_lots_value.split('@')[1]) + 5
-        self.input_action(self.input_StPx_path, str(StPx_value))
-        self.input_action(self.price_xpath, str(price_value))
-        self.click_action(self.button_confirm)
-        self.click_action(self.button_confirm)
+        self.press_confirm_button()
+        self.press_confirm_button()
 
     def stl_type_input_StPx_above_price_and_sell_order(self):
-        self.change_type_stl()
-        self.click_action(self.sell_side_id)
-        self.clear_action(self.input_StPx_path)
-        self.clear_action(self.price_xpath)
-        last_price_and_lots = self.get_visible_element(self.last_price_and_lots)
-        last_price_and_lots_value = last_price_and_lots.text
-        StPx_value = float(last_price_and_lots_value.split('@')[1]) + 5
-        price_value = float(last_price_and_lots_value.split('@')[1]) + 2
-        self.input_action(self.input_StPx_path, str(StPx_value))
-        self.input_action(self.price_xpath, str(price_value))
-        self.click_action(self.button_confirm)
-        self.click_action(self.button_confirm)
+        self.stl_type_input_price_diff_and_StPx_diff(10, 5)
+        self.press_confirm_button()
+        self.press_confirm_button()
 
     def change_type_ice(self):
         self.press_offer()
@@ -579,22 +557,19 @@ class NormalOrderPage(BasePage):
         chunk_size_value = self.get_visible_element(self.chunk_size_xpath).text
         return lots_value, chunk_size_value
 
-
-
-    def ice_type_and_input_chunk_size_above_lots(self):
-        self.change_type_ice()
-        self.clear_action(self.lots_xpath)
-        self.input_action(self.lots_xpath, "50")
-        self.clear_action(self.chunk_size_xpath)
-        self.input_action(self.chunk_size_xpath, "50")
-        chunk_size_value = self.get_visible_element(self.chunk_size_xpath).text
-        lots_value = self.get_visible_element(self.lots_xpath).text
-        return chunk_size_value, lots_value
-
     def ice_type_clear_chunk_size_and_order(self):
         self.change_type_ice()
         self.clear_action(self.chunk_size_xpath)
         self.press_confirm_button()
+
+
+
+
+
+
+
+
+
 
     def ice_clear_iceberg_chunk_size_and_sell(self):
         self.change_type_ice()

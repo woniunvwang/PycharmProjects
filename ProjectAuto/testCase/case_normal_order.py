@@ -303,6 +303,15 @@ class CaseNormalOrder(unittest.TestCase):
         result = self.normal_order_page.is_toast_exist(AlertError.alert_message_chunk_size)
         self.assertEqual(True, result)
 
+
+
+
+
+
+
+
+
+
     def test_41_clear_fak_min_quantity_should_fail(self):
         self.normal_order_page.clear_fak_min_quantity_and_order()
         result = self.normal_order_page.is_toast_exist(AlertError.alert_message_min_quantity)
