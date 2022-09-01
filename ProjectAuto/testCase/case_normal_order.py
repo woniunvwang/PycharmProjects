@@ -98,9 +98,8 @@ class CaseNormalOrder(unittest.TestCase):
         self.normal_order_page.press_confirm_button()
         self.normal_order_page.press_confirm_button()
         time.sleep(1)
-        result = self.normal_order_page.alert_order_details_title()
-        txt = AlertError.alert_message_order_succeed
-        self.assertEqual(result, txt)
+        result = self.normal_order_page.alert_order_details_message()
+        self.assertEqual(result, AlertError.alert_message_succeed)
 
     def test_17_change_trade_account_should_success(self):
         result = self.normal_order_page.change_trade_account()
@@ -145,9 +144,8 @@ class CaseNormalOrder(unittest.TestCase):
 
     def test_25_input_lots_and_price_and_order_should_success(self):
         self.normal_order_page.input_lots_and_price_and_order(1, 80)
-        result = self.normal_order_page.alert_order_details_title()
-        txt = AlertError.alert_message_order_succeed
-        self.assertEqual(result, txt)
+        result = self.normal_order_page.alert_order_details_message()
+        self.assertEqual(result, AlertError.alert_message_succeed)
 
     def test_26_changed_Market_type_and_price_should_Market(self):
         self.normal_order_page.change_type_market()
@@ -157,8 +155,8 @@ class CaseNormalOrder(unittest.TestCase):
 
     def test_27_changed_Market_type_and_order_should_success(self):
         self.normal_order_page.Market_type_and_order()
-        result = self.normal_order_page.alert_order_details_title()
-        self.assertEqual(result, AlertError.alert_message_order_succeed)
+        result = self.normal_order_page.alert_order_details_message()
+        self.assertEqual(result, AlertError.alert_message_succeed)
 
     def test_28_changed_Market_Limit_type_and_price_should_Market(self):
         self.normal_order_page.change_type_market_Limit()
@@ -168,8 +166,8 @@ class CaseNormalOrder(unittest.TestCase):
 
     def test_29_changed_Market_Limit_type_and_order_should_success(self):
         self.normal_order_page.Market_Limit_type_and_order()
-        result = self.normal_order_page.alert_order_details_title()
-        self.assertEqual(result, AlertError.alert_message_order_succeed)
+        result = self.normal_order_page.alert_order_details_message()
+        self.assertEqual(result, AlertError.alert_message_succeed)
 
     def test_30_buy_side_and_Market_type_changed_LIM_type_and_price_should_offer_value(self):
         result = self.normal_order_page.Market_type_changed_LIM_type()
@@ -194,28 +192,28 @@ class CaseNormalOrder(unittest.TestCase):
 
     def test_34_changed_stp_type_and_order_should_success(self):
         self.normal_order_page.stp_type_and_order()
-        result = self.normal_order_page.alert_order_details_title()
-        self.assertEqual(result, AlertError.alert_message_order_succeed)
+        result = self.normal_order_page.alert_order_details_message()
+        self.assertEqual(result, AlertError.alert_message_succeed)
 
     def test_35_stp_type_and_buy_side_and_input_StPx_above_last_price_should_success(self):
         self.normal_order_page.stp_type_input_StPx_above_last_price_and_buy_order()
-        result = self.normal_order_page.alert_order_details_title()
-        self.assertEqual(result, AlertError.alert_message_order_succeed)
+        result = self.normal_order_page.alert_order_details_message()
+        self.assertEqual(result, AlertError.alert_message_succeed)
 
     def test_36_stp_type_and_buy_side_and_input_StPx_below_last_price_should_fail(self):
         self.normal_order_page.stp_type_input_StPx_below_last_price_and_buy_order()
-        result = self.normal_order_page.alert_message()
+        result = self.normal_order_page.alert_order_details_message()
         self.assertEqual(AlertError.alert_message_buy_order_rejected, result)
 
     def test_37_stp_type_and_sell_side_and_input_StPx_above_last_price_should_fail(self):
         self.normal_order_page.stp_type_input_StPx_above_last_price_and_sell_order()
-        result = self.normal_order_page.alert_message()
+        result = self.normal_order_page.alert_order_details_message()
         self.assertEqual(AlertError.alert_message_sell_order_rejected, result)
 
     def test_38_stp_type_and_sell_side_and_input_StPx_below_last_price_should_success(self):
         self.normal_order_page.stp_type_input_StPx_below_last_price_and_sell_order()
-        result = self.normal_order_page.alert_order_details_title()
-        self.assertEqual(result, AlertError.alert_message_order_succeed)
+        result = self.normal_order_page.alert_order_details_message()
+        self.assertEqual(result, AlertError.alert_message_succeed)
 
     def test_39_stl_type_and_buy_side_and_price_should_offer_value(self):
         result = self.normal_order_page.change_type_stl()
@@ -232,73 +230,73 @@ class CaseNormalOrder(unittest.TestCase):
 
     def test_42_stl_type_and_buy_side_and_input_price_equal_StPx_above_last_price_should_success(self):
         self.normal_order_page.stl_type_input_StPx_above_last_price_and_buy_order()
-        result = self.normal_order_page.alert_order_details_title()
-        self.assertEqual(result, AlertError.alert_message_order_succeed)
+        result = self.normal_order_page.alert_order_details_message()
+        self.assertEqual(result, AlertError.alert_message_succeed)
 
     def test_43_stl_type_and_buy_side_and_input_price_equal_StPx_below_last_price_should_fail(self):
         self.normal_order_page.stl_type_input_StPx_below_last_price_and_buy_order()
-        result = self.normal_order_page.alert_message()
+        result = self.normal_order_page.alert_order_details_message()
         self.assertEqual(AlertError.alert_message_buy_order_rejected, result)
 
     def test_44_stl_type_and_sell_side_and_input_price_equal_StPx_above_last_price_should_fail(self):
         self.normal_order_page.stl_type_input_StPx_above_last_price_and_sell_order()
-        result = self.normal_order_page.alert_message()
+        result = self.normal_order_page.alert_order_details_message()
         self.assertEqual(AlertError.alert_message_sell_order_rejected, result)
 
     def test_45_stl_type_and_sell_side_and_input_price_equal_StPx_below_last_price_should_success(self):
         self.normal_order_page.stl_type_input_StPx_below_last_price_and_sell_order()
-        result = self.normal_order_page.alert_order_details_title()
-        self.assertEqual(result, AlertError.alert_message_order_succeed)
+        result = self.normal_order_page.alert_order_details_message()
+        self.assertEqual(result, AlertError.alert_message_succeed)
 
     def test_46_stl_type_and_buy_side_and_above_last_price_and_StPx_below_price_should_success(self):
         self.normal_order_page.stl_type_input_StPx_below_price_and_buy_order()
-        result = self.normal_order_page.alert_order_details_title()
-        self.assertEqual(result, AlertError.alert_message_order_succeed)
+        result = self.normal_order_page.alert_order_details_message()
+        self.assertEqual(result, AlertError.alert_message_succeed)
 
     def test_47_stl_type_and_buy_side_and_above_last_price_and_StPx_above_price_should_fail(self):
         self.normal_order_page.stl_type_input_StPx_above_price_and_buy_order()
         result = self.normal_order_page.is_toast_exist(AlertError.alert_buy_order_illegal_StPx)
-        self.assertEqual(result, True)
+        self.assertEqual(True, result)
 
-    def test_46_stl_type_and_sell_side_and_above_last_price_and_StPx_below_price_should_fail(self):
+    def test_48_stl_type_and_sell_side_and_above_last_price_and_StPx_below_price_should_fail(self):
         self.normal_order_page.stl_type_input_StPx_below_price_and_sell_order()
         result = self.normal_order_page.is_toast_exist(AlertError.alert_sell_order_illegal_StPx)
-        self.assertEqual(result, True)
+        self.assertEqual(True, result)
 
-    def test_47_stl_type_and_sell_side_and_above_last_price_and_StPx_above_price_should_success(self):
+    def test_49_stl_type_and_sell_side_and_above_last_price_and_StPx_above_price_should_success(self):
         self.normal_order_page.stl_type_input_StPx_above_price_and_sell_order()
-        result = self.normal_order_page.alert_order_details_title()
-        self.assertEqual(result, AlertError.alert_message_order_succeed)
+        result = self.normal_order_page.alert_order_details_message()
+        self.assertEqual(result, AlertError.alert_message_succeed)
 
-    def test_40_ice_type_and_chunk_size_should_fix_value(self):
+    def test_50_ice_type_and_chunk_size_should_fix_value(self):
         result = self.normal_order_page.change_type_ice()
         self.assertEqual("1", result)
 
-    def test_40_ice_type_and_input_chunk_size_illegal_value_should_fix_value(self):
+    def test_51_ice_type_and_input_chunk_size_illegal_value_should_fix_value(self):
         result = self.normal_order_page.ice_type_and_input_chunk_size("0")
         self.assertEqual("1", result)
 
-    def test_40_ice_type_and_input_chunk_size_less_than_lots_should_legal(self):
+    def test_52_ice_type_and_input_chunk_size_less_than_lots_should_legal(self):
         result = self.normal_order_page.ice_type_and_input_lots_and_chunk_size("10", "5")
         self.assertEqual("10", result[0])
         self.assertEqual("5", result[1])
 
-    def test_40_ice_type_and_input_chunk_size_equal_lots_should_legal(self):
+    def test_53_ice_type_and_input_chunk_size_equal_lots_should_legal(self):
         result = self.normal_order_page.ice_type_and_input_lots_and_chunk_size("5", "5")
         self.assertEqual("5", result[0])
         self.assertEqual("5", result[1])
 
-    def test_40_ice_type_and_input_chunk_size_above_lots_should_lots_value(self):
+    def test_54_ice_type_and_input_chunk_size_above_lots_should_lots_value(self):
         result = self.normal_order_page.ice_type_and_input_lots_and_chunk_size("5", "10")
         self.assertEqual("5", result[0])
         self.assertEqual("5", result[1])
 
-    def test_40_ice_type_and_input_chunk_size_above_50_should_50(self):
+    def test_55_ice_type_and_input_chunk_size_above_50_should_50(self):
         result = self.normal_order_page.ice_type_and_input_lots_and_chunk_size("51", "51")
         self.assertEqual("51", result[0])
         self.assertEqual("50", result[1])
 
-    def test_40_ice_type_and_clear_chunk_size_and_order_should_fail(self):
+    def test_56_ice_type_and_clear_chunk_size_and_order_should_fail(self):
         self.normal_order_page.ice_type_clear_chunk_size_and_order()
         result = self.normal_order_page.is_toast_exist(AlertError.alert_message_chunk_size)
         self.assertEqual(True, result)
@@ -312,20 +310,20 @@ class CaseNormalOrder(unittest.TestCase):
 
 
 
-    def test_41_clear_fak_min_quantity_should_fail(self):
-        self.normal_order_page.clear_fak_min_quantity_and_order()
-        result = self.normal_order_page.is_toast_exist(AlertError.alert_message_min_quantity)
-        self.assertEqual(True, result)
-
-    def test_42_fak_min_quantity_input_below_lots_and_order_should_success(self):
-        self.normal_order_page.fak_min_quantity_input_below_lots_and_order(4, 3)
-        result = self.normal_order_page.alert_order_details_title()
-        self.assertEqual(result, AlertError.alert_message_order_succeed)
-
-    def test_43_fak_min_quantity_input_above_lots_and_order_should_(self):
-        fak_min_quantity = self.normal_order_page.fak_min_quantity_input_above_lots_and_order(3, 4)
-        time.sleep(2)
-        self.assertEqual(fak_min_quantity, '3')
+    # def test_41_clear_fak_min_quantity_should_fail(self):
+    #     self.normal_order_page.clear_fak_min_quantity_and_order()
+    #     result = self.normal_order_page.is_toast_exist(AlertError.alert_message_min_quantity)
+    #     self.assertEqual(True, result)
+    #
+    # def test_42_fak_min_quantity_input_below_lots_and_order_should_success(self):
+    #     self.normal_order_page.fak_min_quantity_input_below_lots_and_order(4, 3)
+    #     result = self.normal_order_page.alert_order_details_message()
+    #     self.assertEqual(result, AlertError.alert_message_succeed)
+    #
+    # def test_43_fak_min_quantity_input_above_lots_and_order_should_(self):
+    #     fak_min_quantity = self.normal_order_page.fak_min_quantity_input_above_lots_and_order(3, 4)
+    #     time.sleep(2)
+    #     self.assertEqual(fak_min_quantity, '3')
 
     # def test_32_ice_iceberg_chunk_size_input_above_lots_and_buy_should_succeed(self):
     #     iceberg_chunk_size = self.normal_order_page.ice_iceberg_chunk_size_input_above_lots_and_buy(3, 4)

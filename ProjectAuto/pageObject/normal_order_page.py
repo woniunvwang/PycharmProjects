@@ -236,9 +236,6 @@ class NormalOrderPage(BasePage):
         actions.perform()
         self.get_visible_element(self.contract_group_text).click()
 
-    def alert_message(self):
-        return self.get_visible_element(self.alert_message_ID).text
-
     def press_confirm_button(self):
         confirm_button = self.get_visible_element(self.confirm_button_id)
         confirm_button.click()
@@ -487,19 +484,19 @@ class NormalOrderPage(BasePage):
         self.press_confirm_button()
         self.press_confirm_button()
 
-    def stl_type_input_StPx_below_last_price_and_sell_order(self):
-        self.stl_type_input_difference_value(-5)
-        self.click_action(self.sell_side_id)
-        self.press_confirm_button()
-        self.press_confirm_button()
-
     def stl_type_input_StPx_above_last_price_and_sell_order(self):
         self.stl_type_input_difference_value(+5)
         self.click_action(self.sell_side_id)
         self.press_confirm_button()
         self.press_confirm_button()
 
-    def stl_type_input_price_diff_and_StPx_diff(self, StPx_diff, price_diff):
+    def stl_type_input_StPx_below_last_price_and_sell_order(self):
+        self.stl_type_input_difference_value(-5)
+        self.click_action(self.sell_side_id)
+        self.press_confirm_button()
+        self.press_confirm_button()
+
+    def stl_type_input_StPx_diff_and_price_diff(self, StPx_diff, price_diff):
         self.change_type_stl()
         self.clear_action(self.input_StPx_path)
         self.clear_action(self.price_xpath)
@@ -511,24 +508,23 @@ class NormalOrderPage(BasePage):
         self.input_action(self.price_xpath, price_value)
 
     def stl_type_input_StPx_below_price_and_buy_order(self):
-        self.stl_type_input_price_diff_and_StPx_diff(5, 10)
+        self.stl_type_input_StPx_diff_and_price_diff(5, 10)
         self.press_confirm_button()
         self.press_confirm_button()
 
     def stl_type_input_StPx_above_price_and_buy_order(self):
-        self.stl_type_input_price_diff_and_StPx_diff(10, 5)
-        self.click_action(self.sell_side_id)
+        self.stl_type_input_StPx_diff_and_price_diff(10, 5)
         self.press_confirm_button()
         self.press_confirm_button()
 
     def stl_type_input_StPx_below_price_and_sell_order(self):
-        self.stl_type_input_price_diff_and_StPx_diff(5, 10)
+        self.stl_type_input_StPx_diff_and_price_diff(-10, -5)
         self.click_action(self.sell_side_id)
-        self.press_confirm_button()
         self.press_confirm_button()
 
     def stl_type_input_StPx_above_price_and_sell_order(self):
-        self.stl_type_input_price_diff_and_StPx_diff(10, 5)
+        self.stl_type_input_StPx_diff_and_price_diff(-5, -10)
+        self.click_action(self.sell_side_id)
         self.press_confirm_button()
         self.press_confirm_button()
 
@@ -679,14 +675,8 @@ class NormalOrderPage(BasePage):
         self.click_action(self.button_confirm)
         return price_text, order_details_title, order_details_price
 
-    def alert_order_details_title(self):
-        return self.get_visible_element(self.alert_title).text
-
-    def getType(self):
-        time.sleep(1)
-        return self.driver.find_elements(AppiumBy.ID, "com.atp.demo2:id/button")[0]
-
-
+    def alert_order_details_message(self):
+        return self.get_visible_element(self.alert_message_ID).text
 
 if __name__ == '__main__':
     driver = android_driver()
